@@ -1,3 +1,6 @@
+;; require: package
+(require 'package)
+
 ;; set the font to Go Mono
 (add-to-list 'default-frame-alist
 	     '(font . "Go Mono-11"))
@@ -27,3 +30,27 @@
 
 ;; key: set C-g to C-z
 (global-set-key [(control z)] 'keyboard-quit)
+
+;; mod: load acme-mouse
+(load-library "~/.emacs.d/acme-mouse.el")
+
+;; add-package: rust-mode
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(package-refresh-contents)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(rust-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; require rust, I guess (wtf is that shit above)
+(require 'rust-mode)
