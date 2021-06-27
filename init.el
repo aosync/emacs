@@ -34,23 +34,25 @@
 ;; mod: load acme-mouse
 (load-library "~/.emacs.d/acme-mouse.el")
 
-;; add-package: rust-mode
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+;; setup melpa
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 (package-initialize)
-(package-refresh-contents)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(rust-mode)))
+ '(package-selected-packages
+   '(guru-mode smart-tabs-mode treemacs slime-volleyball)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#eef2f7" :foreground "#242626" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "    " :family "Go Mono")))))
 
-;; require rust, I guess (wtf is that shit above)
-(require 'rust-mode)
+(setq inferior-lisp-program "sbcl")
+(smart-tabs-insinuate 'c 'java)
+(treemacs)
+(guru-global-mode +1)
