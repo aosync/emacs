@@ -47,9 +47,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(auto-package-update)))
-
-(setq inferior-lisp-program "sbcl")
+ '(package-selected-packages '(magit projectile ## auto-package-update)))
 
 (use-package auto-package-update
   :config
@@ -81,4 +79,10 @@
   :commands lsp)
 
 (use-package lsp-ui :commands lsp-ui-mode)
+(use-package projectile
+  :config
+  (setq projectile-project-search-path '("~/Repos"))
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
 
+(use-package magit)
