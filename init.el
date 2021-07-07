@@ -47,7 +47,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(undo-tree magit projectile ## auto-package-update)))
+ '(package-selected-packages
+   '(lsp-java undo-tree magit projectile ## auto-package-update)))
 
 (use-package auto-package-update
   :config
@@ -78,7 +79,13 @@
    (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
-(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-java
+  :hook
+  (java-mode . lsp))
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
 (use-package projectile
   :config
   (setq projectile-project-search-path '("~/Repos"))
@@ -86,6 +93,7 @@
   ("C-c p" . projectile-command-map))
 
 (use-package magit)
+
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
