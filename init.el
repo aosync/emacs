@@ -47,20 +47,53 @@
   :init
   (vertico-mode))
 
+;; [config] disable electric indent
+(electric-indent-mode -1)
+(add-hook 'after-change-major-mode-hook (lambda()
+					  (electric-indent-mode -1)))
+
 ;; [package] pdf-tools: opens pdfs
 (use-package pdf-tools)
 
-;; [config] linum
-(global-linum-mode 1)
+;; [package] rust-mode: mode for rust syntax highlighting
+(use-package rust-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode)))
+
+;; [package] hare-mode: mode for hare
+(use-package hare-mode
+  :straight (hare-mode :type git :host nil
+		       :repo "https://git.sr.ht/~bbuccianti/hare-mode")
+  :init
+  (add-to-list 'auto-mode-alist '("\\.ha\\'" . hare-mode)))
+
+;; [package] tex: latex stuff
+(use-package tex
+  :straight auctex
+  :init
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil))
+
+(use-package modus-themes
+  :straight (modus-themes :type git :host nil
+		       :repo "https://gitlab.com/protesilaos/modus-themes.git")
+  :init
+  (modus-themes-load-themes)
+  (modus-themes-load-vivendi))
+
+;; [config] display line numbers
+(global-display-line-numbers-mode 1)
 
 ;; [config] disable menu-bar-mode  scroll-bar and menu-bar
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-;; [config] more natural scrolling (a bit janky until pixel perfect scrolling in 29)
+;; [config] more natural scrolling
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-follow-mouse 't)
+(pixel-scroll-precision-mode)
 
 ;; [config] highlighting
 (global-hl-line-mode 1)
@@ -77,16 +110,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(custom-safe-themes
+   '("02fff7eedb18d38b8fd09a419c579570673840672da45b77fde401d8708dc6b5" default))
+ '(fill-nobreak-predicate '(fill-french-nobreak-p)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "    " :family "GoMono Nerd Font"))))
- '(fringe ((t (:inherit background))))
- '(highlight ((t (:background "gray80"))))
- '(region ((t (:extend t :background "dark sea green" :distant-foreground "gtk_selection_fg_color")))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#000000" :foreground "#ffffff" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 120 :width normal :foundry "PfEd" :family "Go Mono"))))
+ '(fringe ((t (:inherit background)))))
+
 
 ;; [command] open-line-above: mimicks vim shift+o behavior
 (defun open-line-above ()
@@ -102,3 +136,10 @@
 (setq indent-tabs-mode t)
 (setq tab-width 4)
 (defvaralias 'c-basic-offset 'tab-width)
+
+(add-hook 'java-mode-hook (lambda ()
+			    (setq c-basic-offset 4
+				  tab-width 4
+				  indent-tabs-mode nil)))
+
+(put 'dired-find-alternate-file 'disabled nil)
