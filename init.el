@@ -21,7 +21,7 @@
 ;; [config] straight: use use-package by default
 (use-package straight
   :custom (straight-use-package-by-default t))
-
+9
 ;; [package] acme-mouse
 (use-package acme-mouse)
 
@@ -75,12 +75,29 @@
   (setq TeX-parse-self t)
   (setq-default TeX-master nil))
 
+;; [package] modus-themes: cool theme
+;; XXX: included in emacs?
 (use-package modus-themes
-  :straight (modus-themes :type git :host nil
-		       :repo "https://gitlab.com/protesilaos/modus-themes.git")
   :init
   (modus-themes-load-themes)
   (modus-themes-load-vivendi))
+
+
+;; [package] tmr: useful timers (finally, because I used to use my phone
+;; previously
+(use-package tmr
+  :straight (tmr :type git :host nil
+		 :repo "https://git.sr.ht/~protesilaos/tmr"))
+
+;; [package] plz: (dep) ement
+(use-package plz
+  :straight (plz :type git :host nil
+		   :repo "https://github.com/alphapapa/plz.el"))
+
+;; [package] ement: matrix client
+(use-package ement
+  :straight (ement :type git :host nil
+		   :repo "https://github.com/alphapapa/ement.el"))
 
 ;; [config] display line numbers
 (global-display-line-numbers-mode 1)
