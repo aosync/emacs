@@ -21,7 +21,7 @@
 ;; [config] straight: use use-package by default
 (use-package straight
   :custom (straight-use-package-by-default t))
-9
+
 ;; [package] acme-mouse
 (use-package acme-mouse
   :init
