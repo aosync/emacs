@@ -23,24 +23,12 @@
   :custom (straight-use-package-by-default t))
 9
 ;; [package] acme-mouse
-(use-package acme-mouse)
+(use-package acme-mouse
+  :init
+  (delete-selection-mode -1))
 
 ;; [package] magit
 (use-package magit)
-
-;; [package] dired-sidebar
-(use-package dired-sidebar
-  :bind
-  (("C-x C-n" . dired-sidebar-toggle-sidebar))
-  :commands (dired-sidebar-toggle-sidebar)
-  :config
-  (setq dired-sidebar-theme 'vscode)
-  (setq dired-sidebar-use-term-integration t)
-  (setq dired-sidebar-use-custom-font t))
-
-;; [package] vscode-icon
-(use-package vscode-icon
-  :commands (vscode-icon-for-file))
 
 ;; [package] vertico: better selection buffer
 (use-package vertico
@@ -75,16 +63,12 @@
   (setq TeX-parse-self t)
   (setq-default TeX-master nil))
 
-;; [package] modus-themes: cool theme
-;; XXX: included in emacs?
-(use-package modus-themes
+(use-package org-fragtog
   :init
-  (modus-themes-load-themes)
-  (modus-themes-load-vivendi))
-
+  (add-hook 'org-mode-hook 'org-fragtog-mode))
 
 ;; [package] tmr: useful timers (finally, because I used to use my phone
-;; previously
+;; previously)
 (use-package tmr
   :straight (tmr :type git :host nil
 		 :repo "https://git.sr.ht/~protesilaos/tmr"))
@@ -98,6 +82,12 @@
 (use-package ement
   :straight (ement :type git :host nil
 		   :repo "https://github.com/alphapapa/ement.el"))
+
+;; [config] set modus-vivendi theme
+(use-package modus-themes
+  :init
+  (modus-themes-load-themes)
+  (modus-themes-load-vivendi))
 
 ;; [config] display line numbers
 (global-display-line-numbers-mode 1)
@@ -129,6 +119,8 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("02fff7eedb18d38b8fd09a419c579570673840672da45b77fde401d8708dc6b5" default))
+ '(ement-notify-notification-predicates
+   '(ement-notify--event-mentions-session-user-p ement-notify--event-mentions-room-p))
  '(fill-nobreak-predicate '(fill-french-nobreak-p)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -160,3 +152,24 @@
 				  indent-tabs-mode nil)))
 
 (put 'dired-find-alternate-file 'disabled nil)
+
+(autoload 'delete-selection-helper "delsel")
+(defun vz/delete-mouse-selection-pre-hook ()
+  (when (and vz/delete-mouse-selection-mode
+             (use-region-p) (mouse-region-match)
+             (not buffer-read-only))
+    (delete-selection-helper (and (symbolp this-command)
+                                  (get this-command 'delete-selection)))))
+
+(define-minor-mode vz/delete-mouse-selection-mode
+  "Replace the region by typed text if it was selected using the mouse.
+Otherwise, typed text is just inserted."
+  :global t
+  (if vz/delete-mouse-selection-mode
+      (add-hook 'pre-command-hook #'vz/delete-mouse-selection-pre-hook)
+    (remove-hook 'pre-command-hook #'vz/delete-mouse-selection-pre-hook)))
+
+(vz/delete-mouse-selection-mode 1)
+
+(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(windmove-default-keybindings)
