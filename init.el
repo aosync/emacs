@@ -83,6 +83,10 @@
   :straight (ement :type git :host nil
 		   :repo "https://github.com/alphapapa/ement.el"))
 
+(use-package neotree
+  :config
+  (global-set-key [f8] 'neotree-toggle))
+
 ;; [config] set modus-vivendi theme
 (use-package modus-themes
   :init
@@ -173,3 +177,8 @@ Otherwise, typed text is just inserted."
 
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (windmove-default-keybindings)
+
+(setq-default fill-column 72)
+(global-visual-line-mode 1)
+(add-hook 'text-mode-hook 'auto-fill-mode)
+(add-hook 'org-mode-hook 'auto-fill-mode)
