@@ -1,6 +1,9 @@
 ;; Disable package.el
 (setq package-enable-at-startup nil)
 
+;; [config] disable compilation warnings
+(setq native-comp-async-report-warnings-errors nil)
+
 ;; straight.el booststrap (https://github.com/raxod502/straight.el#getting-started)
 (defvar bootstrap-version)
 (let ((bootstrap-file
