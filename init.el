@@ -39,7 +39,8 @@
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init
-  (setq lsp-keymap-prefix "C-c l"))
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (c-mode . lsp-mode))
 
 ;; [package] company-mode
 (use-package company-mode
@@ -159,11 +160,6 @@
 (setq indent-tabs-mode t)
 (setq tab-width 4)
 (defvaralias 'c-basic-offset 'tab-width)
-
-(add-hook 'java-mode-hook (lambda ()
-			    (setq c-basic-offset 4
-				  tab-width 4
-				  indent-tabs-mode nil)))
 
 (put 'dired-find-alternate-file 'disabled nil)
 
