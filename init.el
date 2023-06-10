@@ -35,10 +35,24 @@
   :init
   (vertico-mode))
 
-;; [config] disable electric indent
-(electric-indent-mode -1)
-(add-hook 'after-change-major-mode-hook (lambda()
-					  (electric-indent-mode -1)))
+;; [package] lsp-mode
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l"))
+
+;; [package] company-mode
+(use-package company-mode
+  :after lsp-mode
+  :hook (prog-mode . company-mode)
+  :bind
+  (:map company-active-map
+		("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+		("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
 
 ;; [package] pdf-tools: opens pdfs
 (use-package pdf-tools)
@@ -87,12 +101,6 @@
   :config
   (global-set-key [f8] 'neotree-toggle))
 
-;; [config] set modus-vivendi theme
-(use-package modus-themes
-  :init
-  (modus-themes-load-themes)
-  (modus-themes-load-vivendi))
-
 ;; [config] display line numbers
 (global-display-line-numbers-mode 1)
 
@@ -104,7 +112,9 @@
 ;; [config] more natural scrolling
 (setq mouse-wheel-progressive-speed nil)
 (setq mouse-wheel-follow-mouse 't)
-(pixel-scroll-precision-mode)
+
+(if (boundp 'pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode))
 
 ;; [config] highlighting
 (global-hl-line-mode 1)
