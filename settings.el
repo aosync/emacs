@@ -1,3 +1,5 @@
+;; settings.el: general emacs configuration
+
 ;; setup
 (setq native-comp-async-report-warnings-errors nil)
 
@@ -12,7 +14,6 @@
 
 (setq-default fill-column 72)
 (put 'dired-find-alternate-file 'disabled nil)
-(windmove-default-keybindings)
 
 ;; modes
 (menu-bar-mode -1)
@@ -21,8 +22,6 @@
 
 (line-number-mode -1)
 (global-linum-mode 1)
-
-(global-hl-line-mode 1)
 
 (if (boundp 'pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode))
@@ -40,6 +39,8 @@
 
 (global-set-key (kbd "<f9>") 'linum-mode)
 (global-set-key (kbd "<f10>") 'writeroom-mode)
+
+(windmove-default-keybindings)
 
 ;; hooks
 (add-hook 'text-mode-hook 'auto-fill-mode)

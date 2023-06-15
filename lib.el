@@ -1,3 +1,5 @@
+;; lib.el: defines miscellaneous helpers used throughout the config
+
 (defun open-line-above ()
   (interactive)
   (move-beginning-of-line nil)

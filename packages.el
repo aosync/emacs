@@ -1,3 +1,5 @@
+;; packages.el: specifies and configures packages
+
 ;; Disable package.el
 (setq package-enable-at-startup nil)
 
@@ -81,6 +83,8 @@
 		       :repo "https://git.sr.ht/~bbuccianti/hare-mode")
   :init
   (add-to-list 'auto-mode-alist '("\\.ha\\'" . hare-mode)))
+
+(use-package go-mode)
 
 (use-package acme-mouse
   :init

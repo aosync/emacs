@@ -1,6 +1,6 @@
 (setq lib-file (concat user-emacs-directory "lib.el"))
-(setq pre-file (concat user-emacs-directory "pre.el"))
-(setq pkg-file (concat user-emacs-directory "pkg.el"))
+(setq pre-file (concat user-emacs-directory "settings.el"))
+(setq pkg-file (concat user-emacs-directory "packages.el"))
 
 (if (file-exists-p lib-file)
     (load-file lib-file))
