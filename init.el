@@ -1,15 +1,15 @@
 (setq lib-file (concat user-emacs-directory "lib.el"))
-(setq pre-file (concat user-emacs-directory "settings.el"))
-(setq pkg-file (concat user-emacs-directory "packages.el"))
+(setq settings-file (concat user-emacs-directory "settings.el"))
+(setq packages-file (concat user-emacs-directory "packages.el"))
 
 (if (file-exists-p lib-file)
     (load-file lib-file))
 
-(if (file-exists-p pre-file)
-    (load-file pre-file))
+(if (file-exists-p settings-file)
+    (load-file settings-file))
 
-(if (file-exists-p pkg-file)
-    (load-file pkg-file))
+(if (file-exists-p packages-file)
+    (load-file packages-file))
 
 ;; [INTERFACE] set with the custom interface
 (custom-set-variables
