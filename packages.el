@@ -95,3 +95,7 @@
 (use-package vertico
   :init
   (vertico-mode))
+
+(use-package sly
+  :config
+  (setq inferior-lisp-program "/usr/bin/sbcl"))
