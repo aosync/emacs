@@ -1,12 +1,10 @@
 ;; lib.el: defines miscellaneous helpers used throughout the config
 
-(defun open-line-above ()
+(defun ao/toggle-execute-extended-command ()
   (interactive)
-  (move-beginning-of-line nil)
-  (newline-and-indent)
-  (forward-line -1)
-  (indent-according-to-mode))
-
+  (if (minibufferp)
+      (keyboard-escape-quit)
+    (call-interactively 'execute-extended-command)))
 
 (autoload 'delete-selection-helper "delsel")
 (defun vz/delete-mouse-selection-pre-hook ()

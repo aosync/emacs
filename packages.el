@@ -20,10 +20,13 @@
 ;; configure use package 
 (straight-use-package 'use-package)
 
-
 ;; packages
 (use-package straight
   :custom (straight-use-package-by-default t))
+
+(use-package evil
+  :config
+  (evil-mode))
 
 (use-package tex
   :straight auctex
@@ -33,20 +36,7 @@
   (setq-default TeX-master nil))
 
 (use-package org-fragtog
-  :init
-  (add-hook 'org-mode-hook 'org-fragtog-mode))
-
-(use-package tmr
-  :straight (tmr :type git :host nil
-		 :repo "https://git.sr.ht/~protesilaos/tmr"))
-
-(use-package plz
-  :straight (plz :type git :host nil
-		   :repo "https://github.com/alphapapa/plz.el"))
-
-(use-package ement
-  :straight (ement :type git :host nil
-		   :repo "https://github.com/alphapapa/ement.el"))
+  :hook ('org-mode-hook 'org-mode-fragtog-mode))
 
 (use-package neotree
   :config
@@ -61,7 +51,6 @@
   :hook (c-mode . lsp-mode))
 
 (use-package company-mode
-  :after lsp-mode
   :hook (prog-mode . company-mode)
   :bind
   (:map company-active-map
@@ -78,19 +67,7 @@
   :init
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode)))
 
-(use-package hare-mode
-  :straight (hare-mode :type git :host nil
-		       :repo "https://git.sr.ht/~bbuccianti/hare-mode")
-  :init
-  (add-to-list 'auto-mode-alist '("\\.ha\\'" . hare-mode)))
-
 (use-package go-mode)
-
-(use-package acme-mouse
-  :init
-  (delete-selection-mode -1))
-
-(use-package magit)
 
 (use-package vertico
   :init
@@ -98,4 +75,9 @@
 
 (use-package sly
   :config
-  (setq inferior-lisp-program "/usr/bin/sbcl"))
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq sly-complete-symbol-function 'sly-))
+
+(use-package rainbow-delimiters
+  :hook (('lisp-mode . 'rainbow-delimiters-mode)
+	 ('emacs-lisp-mode-hook 'rainbow-delimiters-mode)))
