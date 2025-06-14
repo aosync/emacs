@@ -14,7 +14,6 @@
 (setq native-comp-async-report-warnings-errors nil)
 
 (setq backup-directory-alist `(("." . "~/.saves")))
-
 (setq indent-tabs-mode t)
 (setq tab-width 4)
 
@@ -28,7 +27,15 @@
 
 ;; keybinds
 (global-unset-key (kbd "M-s"))
-(global-set-key (kbd "M-s") 'switch-to-buffer)
+(global-unset-key (kbd "K"))
+(evil-global-set-key 'normal (kbd "H") #'windmove-left)
+(evil-global-set-key 'normal (kbd "L") #'windmove-right)
+(evil-global-set-key 'normal (kbd "K") #'windmove-up)
+(evil-global-set-key 'normal (kbd "J") #'windmove-down)
+(evil-global-set-key 'normal (kbd "U") #'ao/kill-window-and-maybe-buffer)
+(evil-global-set-key 'normal (kbd "*") #'kill-current-buffer)
+(evil-global-set-key 'normal (kbd "(") #'delete-window)
+(global-set-key (kbd "M-s") #'switch-to-buffer)
 (global-set-key (kbd "M-x") #'ao/toggle-execute-extended-command)
 
 ;; hooks
