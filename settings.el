@@ -14,7 +14,8 @@
 (setq native-comp-async-report-warnings-errors nil
       backup-directory-alist '(("." . "~/.saves"))
       indent-tabs-mode t
-      tab-width 4)
+      tab-width 4
+      display-line-numbers-width 3)
 
 ;; modes
 (menu-bar-mode -1)
