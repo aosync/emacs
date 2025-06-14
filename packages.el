@@ -25,8 +25,17 @@
   :custom (straight-use-package-by-default t))
 
 (use-package evil
+  :init
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode))
+
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+
+(use-package magit)
 
 (use-package tex
   :straight auctex
@@ -64,17 +73,16 @@
 (use-package pdf-tools)
 
 (use-package rust-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode)))
+  :mode "\\.rs\\'")
 
 (use-package go-mode)
 
 (use-package vertico
-  :init
+  :config
   (vertico-mode))
 
 (use-package sly
-  :config
+  :init
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq sly-complete-symbol-function 'sly-))
 

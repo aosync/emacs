@@ -11,11 +11,10 @@
 	    (set-frame-parameter nil 'height 35)))
 
 ;; setup
-(setq native-comp-async-report-warnings-errors nil)
-
-(setq backup-directory-alist `(("." . "~/.saves")))
-(setq indent-tabs-mode t)
-(setq tab-width 4)
+(setq native-comp-async-report-warnings-errors nil
+      backup-directory-alist '(("." . "~/.saves"))
+      indent-tabs-mode t
+      tab-width 4)
 
 ;; modes
 (menu-bar-mode -1)
@@ -33,8 +32,9 @@
 (evil-global-set-key 'normal (kbd "K") #'windmove-up)
 (evil-global-set-key 'normal (kbd "J") #'windmove-down)
 (evil-global-set-key 'normal (kbd "U") #'ao/kill-window-and-maybe-buffer)
-(evil-global-set-key 'normal (kbd "*") #'kill-current-buffer)
-(evil-global-set-key 'normal (kbd "(") #'delete-window)
+;; See how to make the following two keybinds good
+;; (evil-global-set-key 'normal (kbd "*") #'kill-current-buffer)
+;; (evil-global-set-key 'normal (kbd "(") #'delete-window)
 (global-set-key (kbd "M-s") #'switch-to-buffer)
 (global-set-key (kbd "M-x") #'ao/toggle-execute-extended-command)
 
