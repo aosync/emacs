@@ -13,9 +13,10 @@
 ;; setup
 (setq native-comp-async-report-warnings-errors nil
       backup-directory-alist '(("." . "~/.saves"))
-      indent-tabs-mode t
-      tab-width 4
-      display-line-numbers-width 3)
+      indent-tabs-mode t)
+
+(setq-default tab-width 4
+	      display-line-numbers-width 3)
 
 ;; modes
 (menu-bar-mode -1)
@@ -27,12 +28,17 @@
 
 ;; keybinds
 (global-unset-key (kbd "M-s"))
-(global-unset-key (kbd "K"))
 (evil-global-set-key 'normal (kbd "H") #'windmove-left)
 (evil-global-set-key 'normal (kbd "L") #'windmove-right)
 (evil-global-set-key 'normal (kbd "K") #'windmove-up)
 (evil-global-set-key 'normal (kbd "J") #'windmove-down)
 (evil-global-set-key 'normal (kbd "U") #'ao/kill-window-and-maybe-buffer)
+(evil-global-set-key 'normal (kbd "x") (lambda ()
+											  (interactive)
+											  (evil-delete (point) (+ 1 (point)) 'exclusive ?_)))
+(evil-global-set-key 'visual (kbd "x") (lambda ()
+											  (interactive)
+											  (evil-delete (region-beginning) (region-end) 'exclusive ?_)))
 ;; See how to make the following two keybinds good
 ;; (evil-global-set-key 'normal (kbd "*") #'kill-current-buffer)
 ;; (evil-global-set-key 'normal (kbd "(") #'delete-window)
